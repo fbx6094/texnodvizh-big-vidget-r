@@ -14,60 +14,7 @@
         body {
             overflow: hidden;
         }
-
-        .loader {
-            width: 455px;
-            margin: 0 auto 70px;
-            border: 2px;
-            border-color: black;
-            position: absolute;
-            display: none;
-        }
-
-        .loader .loading_1:before {
-            z-index: 4;
-            content: "";
-            display: block;
-            position: absolute;
-            left: -30px;
-            /* transform: translate(-50%); */
-            border-radius: 35px;
-            border: 2px;
-            border-color: black;
-            width: 0;
-            height: 61px;
-            background-color: #12B72D;
-            opacity: 0.8;
-            animation: load 130s linear infinite;
-            animation-iteration-count: 1;
-        }
-
-        @keyframes load {
-            0% {
-                width: 100%;
-            }
-
-            100% {
-                width: 0%;
-            }
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                top: 10px;
-
-            }
-
-            12.5% {
-                top: 30px;
-            }
-        }
-
-        #timer {
-            display: none;
-        }
+         
     </style>
 </head>
 

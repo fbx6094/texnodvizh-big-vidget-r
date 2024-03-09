@@ -70,10 +70,12 @@
         #timer {
             display: none;
         }
-        #timeroff{
+
+        #timeroff {
             display: none;
         }
-        #timeroff{
+
+        #timeroff {
             display: none;
         }
     </style>
@@ -106,12 +108,14 @@
         <div class="title_right" style="position: absolute;top:1.6%;left: 74%;">Квалификационный матч 1</div>
         <div class="logo_left"></div>
         <div class="logo_right"></div>
-        <div class="main_background"></div>
+        <div class="main_background" id="mainbg"></div>
         <div class="blue_upper_background_with_curve"></div>
         <div class="score_background"></div>
         <div class="blue_upper_background"></div>
         <div class="score">{{data.score_team_1 + ":" + data.score_team_2}}</div>
         <!-- <div class="grid_for_team_names"> -->
+        <div class="datateam2" id="datateam2">{{data.name_team_2}}</div>
+        <div class="finalwinner" id="finalwinner">Победитель</div>
         <div class="table_row">
             <div class="item_for_widing w-300" onclick="showItogo()">{{data.name_team_1}}</div>
             <div class="item_for_widing w-300">{{data.name_team_2}}</div>
@@ -125,8 +129,6 @@
                     </div>
                 </div>
                 <div class="timer">
-                    <span id="startbtn" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
-                    <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
                     <span id="startbtn" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
                     <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
                     <h1 id="timer"
@@ -147,8 +149,7 @@
                 <div :class="data.team_1_score_street_2 == '4' ? 'triangle_green': 'triangle'"></div>
                 <div class="house_white" v-for="house in 4-data.team_1_score_street_2"></div>
                 <div class="house_green" v-for="house in data.team_1_score_street_2"></div>
-                <div class="street_label">ул.Первых</div> 
-                <div class="street_label">ул.Первых</div> 
+                <div class="street_label">ул.Первых</div>
             </div>
             <div class="houses_container">
                 <div :class="data.team_1_score_street_3 == '4' ? 'triangle_green': 'triangle'"></div>
@@ -157,8 +158,8 @@
                 <div class="street_label">ул.Истории</div>
             </div>
         </div>
-        
-        
+
+
         <div class="streets_container" style="position: absolute; top: 45%; left: 67%">
             <div class="houses_container">
                 <div :class="data.team_2_score_street_1 == '4' ? 'triangle_green': 'triangle'"></div>
@@ -179,8 +180,8 @@
                 <div class="street_label">ул.Истории</div>
             </div>
         </div>
-        
-        
+
+
         <div class="streets_container" style="position: absolute; top: 43%; left: 50%; transform: translate(-50%)">
             <div class="houses_container">
                 <div :class="data.team_score_street_main == '4' ? 'big_triangle_green': 'big_triangle'"></div>
@@ -251,10 +252,7 @@
             },
         }).mount('#app')
         //код таймера
-        var button = document.getElementById("startbtn");
-        var timer = document.getElementById("timer");
-        var loader = document.getElementById("loader");
-        var timerof = document.getElementById("timeroff");
+
         var button = document.getElementById("startbtn");
         var timer = document.getElementById("timer");
         var loader = document.getElementById("loader");
@@ -266,19 +264,11 @@
             loader.style.display = "block";
 
         }
-        function backtostart(){
+        function backtostart() {
             timerof.style.display = "none";
             button.style.display = "block";
         }
-        function timeroff(){
-            timerof.style.display = 'block';
-            timer.style.display = 'none';
-        }
-        function backtostart(){
-            timerof.style.display = "none";
-            button.style.display = "block";
-        }
-        function timeroff(){
+        function timeroff() {
             timerof.style.display = 'block';
             timer.style.display = 'none';
         }
@@ -311,8 +301,6 @@
                     playSound1();
                     // timerElement.textContent = "Время вышло!";
                     timeroff();
-                    // timerElement.textContent = "Время вышло!";
-                    timeroff();
                 }
             }
 
@@ -320,7 +308,7 @@
             var timerInterval = setInterval(updateTimer, 1000);
 
         }
-        function playSound1(){
+        function playSound1() {
             const audio = document.getElementById('sound');
             audio.play();
         }
@@ -330,52 +318,112 @@
             timerfnc();
             playSound1();
         });
-        
+
         class Itogo {
-    constructor(teamName) {
-        this.teamName = teamName;
-        this.container = document.createElement('div');
-        this.container.className = 'Itogo';
+            constructor(teamName) {
+                this.teamName = teamName;
+                this.container = document.createElement('div');
+                this.container.className = 'Itogo';
 
-        // Создаем элемент img
-        this.image = document.createElement('img');
-        this.image.src = 'imggg.png';
-        this.image.className = 'rotating'; // Добавляем класс для анимации
+                // Создаем элемент img
+                this.image = document.createElement('img');
+                this.image.src = 'imggg.png';
+                this.image.className = 'rotating';
+                this.image.id = 'rtr'; // Добавляем класс для анимации
 
-        // Добавляем обработчик события для перехода на другую страницу при клике на изображение
-        this.image.onclick = function() {
-            window.location.href = 'index2.html';
-        };
-    }
+                // Добавляем обработчик события для перехода на другую страницу при клике на изображение
+                this.image.onclick = function () {
+                    // window.location.href = 'index2.html';
+                    var circles = document.querySelectorAll('.circles li');
+                    for (var i = 0; i < circles.length; i++) {
+                        circles[i].style.backgroundImage = 'url("korona.png")';
+                    }
+                    showwinner();
+                };
+            }
 
-    show() {
-        // Добавляем изображение в контейнер
-        this.container.appendChild(this.image);
+            show() {
+                var mainbg = document.getElementsByClassName("main_background");
+                // mainbg.style.boxShadow = 'none';
+                // Добавляем изображение в контейнер
+                this.container.appendChild(this.image);
 
-        // Добавляем текст "Судьи принимают решение..."
-        var decisionText = document.createElement('div');
-        decisionText.innerText = 'Судьи принимают решение...';
-        decisionText.className = 'decision-text'; // Добавляем класс для текста
-        this.container.appendChild(decisionText);
+                // Добавляем текст "Судьи принимают решение..."
+                var decisionText = document.createElement('div');
+                decisionText.innerText = 'Судьи принимают решение...';
+                decisionText.className = 'decision-text'; // Добавляем класс для текста
+                this.container.appendChild(decisionText);
 
-        // Добавляем текст с названием команды
-        var teamText = document.createElement('div');
-        this.container.appendChild(teamText);
+                // Добавляем текст с названием команды
+                var teamText = document.createElement('div');
+                this.container.appendChild(teamText);
 
-        // Добавьте дополнительные элементы или логику по необходимости
+                // Добавьте дополнительные элементы или логику по необходимости
 
-        // Добавляем контейнер в тело документа
-        document.body.appendChild(this.container);
-    }
-}
+                // Добавляем контейнер в тело документа
+                document.body.appendChild(this.container);
+            }
+        }
+        function showItogo() {
+            var main_back = document.getElementById("mainbg");
+            main_back.style.boxShadow = "none";
 
-function showItogo() {
-    // Создаем объект класса Itogo
-    var itogoInstance = new Itogo();
+            // Создаем объект класса Itogo
+            var itogoInstance = new Itogo();
 
-    // Вызываем метод show() для отображения Itogo
-    itogoInstance.show();
-}
+            // Вызываем метод show() для отображения Itogo
+            itogoInstance.show();
+        }
+        function showwinner() {
+            this.image = document.createElement('img');
+            this.image.src = 'blue.png';
+            this.image.className = 'blue_back_for_winner';
+            document.body.appendChild(this.image);
+            this.image = document.createElement('img');
+            this.image.src = 'korona.png';
+            this.image.className = 'koronapng';
+            document.body.appendChild(this.image);
+            var data2 = document.getElementById("datateam2");
+            data2.style.display = "block";
+            document.body.appendChild(data2);
+            var winnlabel = document.getElementById("finalwinner");
+            winnlabel.style.display = "block";
+            document.body.appendChild(winnlabel);
+            // var winner_txt = document.createElement('div');
+
+            // var dt = "nn";
+            // var dt2 = dt;
+            // const name_team_2 = 'name_team_2';
+
+            // fetch(`http://localhost:3000/api/score/${name_team_2}`)
+            //     .then((response) => response.json())
+            //     .then((data) => {
+            //         console.log('Score:', data);
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+            // fetch(`http://localhost:3000/api/score/${name_team_2}`, {
+            //     mode: 'no-cors'
+            // })
+            //     .then((response) => {
+            //         if (response.ok) {
+            //             return response.json();
+            //         } else {
+            //             throw new Error('Network response was not OK.');
+            //         }
+            //     })
+            //     .then((data) => {
+            //         console.log('Score:', data);
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+            // var ddt = 4545;
+            // winner_txt.innerText = ddt;
+            // winner_txt.className = 'winner_txt';
+            // document.body.appendChild(winner_txt);
+        }
     </script>
 
 </body>
