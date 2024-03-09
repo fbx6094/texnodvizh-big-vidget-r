@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>
+        Screen
+    </title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html,
+        body {
+            overflow: hidden;
+        }
+
+        .loader {
+            width: 455px;
+            margin: 0 auto 70px;
+            border: 2px;
+            border-color: black;
+            position: absolute;
+            display: none;
+        }
+
+        .loader .loading_1:before {
+            z-index: 4;
+            content: "";
+            display: block;
+            position: absolute;
+            left: -30px;
+            /* transform: translate(-50%); */
+            border-radius: 35px;
+            border: 2px;
+            border-color: black;
+            width: 0;
+            height: 61px;
+            background-color: #12B72D;
+            opacity: 0.8;
+            animation: load 130s linear infinite;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes load {
+            0% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0%;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                top: 10px;
+
+            }
+
+            12.5% {
+                top: 30px;
+            }
+        }
+
+        #timer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body style="font-family:Proxima Nova;">
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="app" id="app">
+        <div class="backroudn_for_titles"></div>
+        <div class="title_left" style="position: absolute; top:1.6%; left: 2%;">Робототехнический турнир “ТЕХНОДВИЖ”
+            2023/2024</div>
+        <div class="separator" style="position: absolute; top: .5%; left: 36.5%;"></div>
+        <div class="title_center" style="position: absolute;top: 1.6%;left: 50%; transform: translate(-50%);">
+            Товарищеский
+            турнир ВАО</div>
+        <div class="separator" style="position: absolute; top: .5%; left: 63.5%;"></div>
+        <div class="title_right" style="position: absolute;top:1.6%;left: 74%;">Квалификационный матч 1</div>
+        <div class="logo_left"></div>
+        <div class="logo_right"></div>
+        <div class="main_background"></div>
+        <div class="blue_upper_background_with_curve"></div>
+        <div class="score_background"></div>
+        <div class="blue_upper_background"></div>
+        <div class="score">{{data.score_team_1 + ":" + data.score_team_2}}</div>
+        <!-- <div class="grid_for_team_names"> -->
+        <div class="table_row">
+            <div class="item_for_widing w-300">{{data.name_team_1}}</div>
+            <div class="item_for_widing w-300">{{data.name_team_2}}</div>
+        </div>
+        <!-- </div> -->
+        <!-- <div class="team_name" style="position: absolute; top: 18.4%; left: 6%;">{{data.name_team_1}}</div>
+        <div class="team_name" style="position: absolute; top: 18.4%; left: 72%;">{{data.name_team_2}}</div> -->
+
+
+        <!-- <div class="item">
+            <div class="timer_background">
+                <div class="loader">
+                    <div class="loading_1"></div>
+                </div>
+            </div>
+            <div class="timer">
+                <h1 id="timer"
+                    style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
+                    02:00
+                </h1>
+            </div>
+        </div> -->
+        <div class="app" id="app">
+            <audio id="sound" src="/images/snd.mp3" preload="auto"></audio>
+            <div class="item">
+                <div class="timer_background">
+                    <div class="loader" id="loader">
+                        <div class="loading_1"></div>
+                    </div>
+                </div>
+                <div class="timer">
+                    <span id="myButton" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                    <h1 id="timer"
+                        style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
+                        02:00
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="streets_container" style="position: absolute; top: 45%; left: 17%">
+            <div class="houses_container">
+                <div :class="data.team_1_score_street_1 == '4' ? 'triangle_green': 'triangle'"></div>
+                <div class="house_white" v-for="house in 4-data.team_1_score_street_1"></div>
+                <div class="house_green" v-for="house in data.team_1_score_street_1"></div>
+                <div class="street_label">ул.Медиа</div>
+            </div>
+            <div class="houses_container">
+                <div :class="data.team_1_score_street_2 == '4' ? 'triangle_green': 'triangle'"></div>
+                <div class="house_white" v-for="house in 4-data.team_1_score_street_2"></div>
+                <div class="house_green" v-for="house in data.team_1_score_street_2"></div>
+                <div class="street_label">ул.Первых</div>
+            </div>
+            <div class="houses_container">
+                <div :class="data.team_1_score_street_3 == '4' ? 'triangle_green': 'triangle'"></div>
+                <div class="house_white" v-for="house in 4-data.team_1_score_street_3"></div>
+                <div class="house_green" v-for="house in data.team_1_score_street_3"></div>
+                <div class="street_label">ул.Истории</div>
+            </div>
+        </div>
+        <!-- <div class="triangle_container" style="position: absolute;top:49.5%; left: 19.8%;">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle_green"></div>
+        </div>
+        <div class="houses_container" style="position: absolute;top: 53.5%; left: 19%;">
+            <div class="house_green"></div>
+            <div class="house_green"></div>
+            <div class="house_white"></div>
+            <div class="house_white"></div>
+            <div class="house_green"></div>
+            <div class="house_green"></div>
+            <div class="house_white"></div>
+            <div class="house_white"></div>
+            <div class="house_white"></div>
+            <div class="house_green"></div>
+            <div class="house_green"></div>
+            <div class="house_white"></div>
+        </div>
+        <div class="street_label_container" style="position: absolute; top:70.4%; left: 18.8%;">
+            <div class="street_label">ул.Медиа</div>
+            <div class="street_label">ул.Первых</div>
+            <div class="street_label">ул.Истории</div>
+        </div> -->
+        <div class="streets_container" style="position: absolute; top: 45%; left: 67%">
+            <div class="houses_container">
+                <div :class="data.team_2_score_street_1 == '4' ? 'triangle_green': 'triangle'"></div>
+                <div class="house_white" v-for="house in 4-data.team_2_score_street_1"></div>
+                <div class="house_green" v-for="house in data.team_2_score_street_1"></div>
+                <div class="street_label">ул.Медиа</div>
+            </div>
+            <div class="houses_container">
+                <div :class="data.team_2_score_street_2 == '4' ? 'triangle_green': 'triangle'"></div>
+                <div class="house_white" v-for="house in 4-data.team_2_score_street_2"></div>
+                <div class="house_green" v-for="house in data.team_2_score_street_2"></div>
+                <div class="street_label">ул.Первых</div>
+            </div>
+            <div class="houses_container">
+                <div :class="data.team_2_score_street_3 == '4' ? 'triangle_green': 'triangle'"></div>
+                <div class="house_white" v-for="house in 4-data.team_2_score_street_3"></div>
+                <div class="house_green" v-for="house in data.team_2_score_street_3"></div>
+                <div class="street_label">ул.Истории</div>
+            </div>
+        </div>
+        <!-- <div class="triangle_container" style="position: absolute;top:49.5%; left: 66.6%;">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle_green"></div>
+        </div>
+        <div class="houses_container" style="position: absolute;top: 53.5%; left: 65.85%;">
+            <div class="house_green"></div>
+            <div class="house_green"></div>
+            <div class="house_white"></div>
+            <div class="house_white"></div>
+            <div class="house_green"></div>
+            <div class="house_green"></div>
+            <div class="house_white"></div>
+            <div class="house_white"></div>
+            <div class="house_white"></div>
+            <div class="house_green"></div>
+            <div class="house_green"></div>
+            <div class="house_white"></div>
+        </div>
+        <div class="street_label_container" style="position: absolute; top:70.4%; left: 65.7%;">
+            <div class="street_label">ул.Медиа</div>
+            <div class="street_label">ул.Первых</div>
+            <div class="street_label">ул.Истории</div>
+        </div> -->
+        <div class="streets_container" style="position: absolute; top: 43%; left: 50%; transform: translate(-50%)">
+            <div class="houses_container">
+                <div :class="data.team_score_street_main == '4' ? 'big_triangle_green': 'big_triangle'"></div>
+                <div class="big_house_white" v-for="house in 4-data.team_score_street_main"></div>
+                <div class="big_house_green" v-for="house in data.team_score_street_main"></div>
+                <div class="skysraper_label">НЕБОСКРЕБ</div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="skysraper_container">
+            <div class="big_house_white"></div>
+            <div class="big_house_white"></div>
+            <div class="big_house_green"></div>
+            <div class="big_house_white"></div>
+        </div>
+        <div class="big_triangle"></div>
+        <div class="skysraper_label">НЕБОСКРЕБ</div>
+    </div> -->
+
+    <!-- <script src="script.js"></script> -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+    <script>
+        // src = 'script.js';
+        const { onMounted, createApp, ref } = Vue;
+        createApp({
+            setup() {
+                const message = ref("Hello vue!");
+                const data = ref({
+                    id: "adsadsadsadasdasd",
+                    score_team_1: "0",
+                    name_team_1: "Name 1",
+                    score_team_2: "0",
+                    name_team_2: "Name 2",
+                    timer: true,
+                    timer_start: "2018-25-12 23:50:55",
+                    timer_end: "2018-25-12 23:50:55",
+                    team_1_score_street_1: 4,
+                    team_1_score_street_2: 2,
+                    team_1_score_street_3: 0,
+                    team_2_score_street_1: 4,
+                    team_2_score_street_2: 4,
+                    team_2_score_street_3: 4,
+                    team_score_street_main: 2,
+                });
+                const fetchData = () => {
+                    setInterval(() => {
+                        fetch("http://193.164.149.85:5000/scores").then((result) =>
+
+                            //fetch("http://185.68.22.42:3000/scores").then((result) =>
+                            result.json().then((res) => {
+                                data.value = res[0];
+                            })
+                        );
+                    }, 500); // Обновление каждые n секунды
+                };
+                fetchData();
+
+                const seconds = ref(30);
+                onMounted(() => {
+                    setInterval(() => {
+                        seconds.value -= 1;
+                    }, 1000);
+                });
+                const minutes = ref(2);
+                onMounted(() => {
+                    setInterval(() => {
+                        minutes.value -= 1;
+                    }, 60000);
+                });
+                return {
+                    message,
+                    data,
+                    seconds,
+                    minutes,
+                };
+            },
+        }).mount('#app')
+        //код таймера
+        var button = document.getElementById("myButton");
+        var timer = document.getElementById("timer")
+        var loader = document.getElementById("loader")
+
+        function button_hide() {
+            button.style.display = "none";
+            timer.style.display = "block";
+            loader.style.display = "block";
+
+        }
+        function timerfnc() {
+            // Устанавливаем время в секундах
+            var timeLeft = 120;
+
+            // Функция для обновления таймера
+            function updateTimer() {
+                // Получаем элемент с id "timer"
+                var timerElement = document.getElementById("timer");
+
+                // Вычисляем минуты и секунды
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+
+                // Добавляем ведущий ноль, если значение минут или секунд меньше 10
+                var formattedMinutes = ("0" + minutes).slice(-2);
+                var formattedSeconds = ("0" + seconds).slice(-2);
+
+                // Обновляем текст в элементе таймера
+                timerElement.textContent = formattedMinutes + ":" + formattedSeconds;
+
+                // Уменьшаем время на 1 секунду
+                timeLeft--;
+
+                // Проверяем, если время закончилось, останавливаем таймер
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    playSound1();
+                    timerElement.textContent = "Время вышло!";
+                }
+            }
+
+            // Запускаем таймер каждую секунду
+            var timerInterval = setInterval(updateTimer, 1000);
+
+        }
+        function playSound1(){
+            const audio = document.getElementById('sound');
+            audio.play();
+        }
+        // button.addEventListener("click", button_hide(), timerfnc());
+        button.addEventListener("click", function () {
+            button_hide();
+            timerfnc();
+            playSound1();
+        });
+    </script>
+
+</body>
+
+</html>

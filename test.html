@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js and JavaScript Example</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message }}</p>
+        <button @click="updateMessage">Update Message</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        // Vue.js code
+        const app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    message: 'Hello, Vue.js!'
+                }
+            },
+            methods: {
+                updateMessage() {
+                    this.message = 'Updated message from Vue.js!';
+                }
+            }
+        });
+
+        // JavaScript code
+        function updateMessageFromJs() {
+            app.message = 'Updated message from JavaScript!';
+        }
+    </script>
+</body>
+</html>

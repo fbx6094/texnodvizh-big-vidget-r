@@ -1,0 +1,110 @@
+<!-- *************
+*           *
+*НЕ РАБОТАЕТ*
+*           *
+************* -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Создание учетной записи</title>
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Создание учетной записи</h1>
+  <form id="signupForm">
+    <div>
+      <label for="username">Имя пользователя:</label>
+      <input type="text" id="username" name="username">
+      <span id="usernameError" class="error-message"></span>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+      <span id="emailError" class="error-message"></span>
+    </div>
+    <div>
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password">
+      <span id="passwordError" class="error-message"></span>
+    </div>
+    <button type="submit" id="submitBtn">Создать учетную запись</button>
+  </form>
+
+  <!-- *************
+*           *
+*НЕ РАБОТАЕТ*
+*           *
+************* -->
+  <!-- Важно: подключите скрипт Firebase после загрузки страницы -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-database.js"></script>
+  <script>
+    // Инициализация Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCBzxmJJ-n2sCQ8RvlonoUaT80tELhyVoY",
+      authDomain: "alert-vortex-384217.firebaseapp.com",
+      databaseURL: "https://ВАШ_ДОМЕН.firebaseio.com",
+      projectId: "alert-vortex-384217",
+      storageBucket: "ВАШ_ДОМЕН.appspot.com",
+      messagingSenderId: "ВАШ_SENDER_ID",
+      appId: "ВАШ_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Обработчик отправки формы
+    document.getElementById('signupForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      let username = document.getElementById('username').value;
+      let email = document.getElementById('email').value;
+      let password = document.getElementById('password').value;
+
+      let usernameError = document.getElementById('usernameError');
+      let emailError = document.getElementById('emailError');
+      let passwordError = document.getElementById('passwordError');
+
+      usernameError.textContent = '';
+      emailError.textContent = '';
+      passwordError.textContent = '';
+//  *************
+// *           *
+// *НЕ РАБОТАЕТ*
+// *           *
+// ************* 
+
+      if (username === '') {
+        usernameError.textContent = 'Имя пользователя обязательно';
+        return;
+      }
+      if (email === '') {
+        emailError.textContent = 'Email обязателен';
+        return;
+      }
+      if (password === '') {
+        passwordError.textContent = 'Пароль обязателен';
+        return;
+      }
+
+      // Сохранение данных пользователя в базе данных Firebase
+      const usersRef = firebase.database().ref('users');
+      usersRef.push({
+        username: username,
+        email: email,
+        password: password
+      });
+
+      // Уведомление пользователя об успешной регистрации
+      alert('Учетная запись успешно создана!');
+    });
+  </script>
+</body>
+
+</html>

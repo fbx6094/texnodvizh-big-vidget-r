@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+        }
+
+        .loader {
+            width: 455px;
+            margin: 0 auto 70px;
+            border: 2px;
+            border-color: black;
+            position: absolute;
+            display: none;
+        }
+
+        .loader .loading_1:before {
+            z-index: 4;
+            content: "";
+            display: block;
+            position: absolute;
+            left: -30px;
+            /* transform: translate(-50%); */
+            border-radius: 35px;
+            border: 2px;
+            border-color: black;
+            width: 0;
+            height: 61px;
+            background-color: yellowgreen;
+            animation: load 130s linear infinite;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes load {
+            0% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0%;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                top: 10px;
+
+            }
+
+            12.5% {
+                top: 30px;
+            }
+        }
+
+        #timer {
+            display: none;
+        }
+
+
+        /* Show the button when it is hovered over using CSS */
+        /* #myButton:hover {
+            display: block;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="app" id="app">
+        <div class="item">
+            <div class="timer_background">
+                <div class="loader" id="loader">
+                    <div class="loading_1"></div>
+                </div>
+            </div>
+            <div class="timer">
+                <span id="myButton" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                <h1 id="timer"
+                    style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
+                    02:00
+                </h1>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
+</body>
+
+</html>
