@@ -68,6 +68,9 @@
         #timer {
             display: none;
         }
+        #timeroff{
+            display: none;
+        }
     </style>
 </head>
 
@@ -136,6 +139,7 @@
                 </div>
                 <div class="timer">
                     <span id="myButton" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                    <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
                     <h1 id="timer"
                         style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
                         02:00
@@ -311,14 +315,19 @@
         }).mount('#app')
         //код таймера
         var button = document.getElementById("myButton");
-        var timer = document.getElementById("timer")
-        var loader = document.getElementById("loader")
+        var timer = document.getElementById("timer");
+        var loader = document.getElementById("loader");
+        var timerof = document.getElementById("timeroff");
 
         function button_hide() {
             button.style.display = "none";
             timer.style.display = "block";
             loader.style.display = "block";
 
+        }
+        function timeroff(){
+            timerof.style.display = 'block';
+            timer.style.display = 'none';
         }
         function timerfnc() {
             // Устанавливаем время в секундах
@@ -347,7 +356,8 @@
                 if (timeLeft < 0) {
                     clearInterval(timerInterval);
                     playSound1();
-                    timerElement.textContent = "Время вышло!";
+                    // timerElement.textContent = "Время вышло!";
+                    timeroff();
                 }
             }
 
