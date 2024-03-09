@@ -32,12 +32,14 @@
             left: -30px;
             /* transform: translate(-50%); */
             border-radius: 16px;
+            border-radius: 16px;
             border: 2px;
             border-color: black;
             width: 0;
             height: 61px;
             background-color: #12B72D;
             opacity: 0.8;
+            animation: load 131s linear infinite;
             animation: load 131s linear infinite;
             animation-iteration-count: 1;
         }
@@ -66,6 +68,9 @@
         }
 
         #timer {
+            display: none;
+        }
+        #timeroff{
             display: none;
         }
         #timeroff{
@@ -122,6 +127,8 @@
                 <div class="timer">
                     <span id="startbtn" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
                     <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
+                    <span id="startbtn" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                    <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
                     <h1 id="timer"
                         style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
                         02:00
@@ -141,6 +148,7 @@
                 <div class="house_white" v-for="house in 4-data.team_1_score_street_2"></div>
                 <div class="house_green" v-for="house in data.team_1_score_street_2"></div>
                 <div class="street_label">ул.Первых</div> 
+                <div class="street_label">ул.Первых</div> 
             </div>
             <div class="houses_container">
                 <div :class="data.team_1_score_street_3 == '4' ? 'triangle_green': 'triangle'"></div>
@@ -149,6 +157,7 @@
                 <div class="street_label">ул.Истории</div>
             </div>
         </div>
+        
         
         <div class="streets_container" style="position: absolute; top: 45%; left: 67%">
             <div class="houses_container">
@@ -170,6 +179,7 @@
                 <div class="street_label">ул.Истории</div>
             </div>
         </div>
+        
         
         <div class="streets_container" style="position: absolute; top: 43%; left: 50%; transform: translate(-50%)">
             <div class="houses_container">
@@ -245,12 +255,24 @@
         var timer = document.getElementById("timer");
         var loader = document.getElementById("loader");
         var timerof = document.getElementById("timeroff");
+        var button = document.getElementById("startbtn");
+        var timer = document.getElementById("timer");
+        var loader = document.getElementById("loader");
+        var timerof = document.getElementById("timeroff");
 
         function button_hide() {
             button.style.display = "none";
             timer.style.display = "block";
             loader.style.display = "block";
 
+        }
+        function backtostart(){
+            timerof.style.display = "none";
+            button.style.display = "block";
+        }
+        function timeroff(){
+            timerof.style.display = 'block';
+            timer.style.display = 'none';
         }
         function backtostart(){
             timerof.style.display = "none";
@@ -287,6 +309,8 @@
                 if (timeLeft < 0) {
                     clearInterval(timerInterval);
                     playSound1();
+                    // timerElement.textContent = "Время вышло!";
+                    timeroff();
                     // timerElement.textContent = "Время вышло!";
                     timeroff();
                 }
