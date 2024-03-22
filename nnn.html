@@ -64,7 +64,9 @@
         #timer {
             display: none;
         }
-
+        #timeroff{
+            display: none;
+        }
 
         /* Show the button when it is hovered over using CSS */
         /* #myButton:hover {
@@ -75,6 +77,7 @@
 
 <body>
     <div class="app" id="app">
+        <audio id="sound" src="/images/snd.mp3" preload="auto"></audio>
         <div class="item">
             <div class="timer_background">
                 <div class="loader" id="loader">
@@ -82,7 +85,8 @@
                 </div>
             </div>
             <div class="timer">
-                <span id="myButton" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                <span id="startbtn" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
                 <h1 id="timer"
                     style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
                     02:00
@@ -92,10 +96,180 @@
     </div>
     <script src="script.js"></script>
 
+    <script>
+        var button = document.getElementById("startbtn");
+        var timer = document.getElementById("timer");
+        var loader = document.getElementById("loader");
+        var timerof = document.getElementById("timeroff");
 
+        function button_hide() {
+            button.style.display = "none";
+            timer.style.display = "block";
+            loader.style.display = "block";
+
+        }
+        function backtostart() {
+            timerof.style.display = "none";
+            button.style.display = "block";
+        }
+        function timeroff() {
+            timerof.style.display = 'block';
+            timer.style.display = 'none';
+        }
+        function timerfnc() {
+            // Устанавливаем время в секундах
+            var timeLeft = 120;
+
+            // Функция для обновления таймера
+            function updateTimer() {
+                // Получаем элемент с id "timer"
+                var timerElement = document.getElementById("timer");
+
+                // Вычисляем минуты и секунды
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+
+                // Добавляем ведущий ноль, если значение минут или секунд меньше 10
+                var formattedMinutes = ("0" + minutes).slice(-2);
+                var formattedSeconds = ("0" + seconds).slice(-2);
+
+                // Обновляем текст в элементе таймера
+                timerElement.textContent = formattedMinutes + ":" + formattedSeconds;
+
+                // Уменьшаем время на 1 секунду
+                timeLeft--;
+
+                // Проверяем, если время закончилось, останавливаем таймер
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    playSound1();
+                    // timerElement.textContent = "Время вышло!";
+                    timeroff();
+                }
+            }
+
+            // Запускаем таймер каждую секунду
+            var timerInterval = setInterval(updateTimer, 1000);
+
+        }
+        function playSound1() {
+            const audio = document.getElementById('sound');
+            audio.play();
+        }
+        // button.addEventListener("click", button_hide(), timerfnc());
+        button.addEventListener("click", function () {
+            button_hide();
+            timerfnc();
+            playSound1();
+        });
+
+        class Itogo {
+            constructor(teamName) {
+                this.teamName = teamName;
+                this.container = document.createElement('div');
+                this.container.className = 'Itogo';
+
+                // Создаем элемент img
+                this.image = document.createElement('img');
+                this.image.src = 'imggg.png';
+                this.image.className = 'rotating';
+                this.image.id = 'rtr'; // Добавляем класс для анимации
+
+                // Добавляем обработчик события для перехода на другую страницу при клике на изображение
+                this.image.onclick = function () {
+                    // window.location.href = 'index2.html';
+                    var circles = document.querySelectorAll('.circles li');
+                    for (var i = 0; i < circles.length; i++) {
+                        circles[i].style.backgroundImage = 'url("korona.png")';
+                    }
+                    showwinner();
+                };
+            }
+
+            show() {
+                var mainbg = document.getElementsByClassName("main_background");
+                // mainbg.style.boxShadow = 'none';
+                // Добавляем изображение в контейнер
+                this.container.appendChild(this.image);
+
+                // Добавляем текст "Судьи принимают решение..."
+                var decisionText = document.createElement('div');
+                decisionText.innerText = 'Судьи принимают решение...';
+                decisionText.className = 'decision-text'; // Добавляем класс для текста
+                this.container.appendChild(decisionText);
+
+                // Добавляем текст с названием команды
+                var teamText = document.createElement('div');
+                this.container.appendChild(teamText);
+
+                // Добавьте дополнительные элементы или логику по необходимости
+
+                // Добавляем контейнер в тело документа
+                document.body.appendChild(this.container);
+            }
+        }
+        function showItogo() {
+            var main_back = document.getElementById("mainbg");
+            main_back.style.boxShadow = "none";
+
+            // Создаем объект класса Itogo
+            var itogoInstance = new Itogo();
+
+            // Вызываем метод show() для отображения Itogo
+            itogoInstance.show();
+        }
+        function showwinner() {
+            this.image = document.createElement('img');
+            this.image.src = 'blue.png';
+            this.image.className = 'blue_back_for_winner';
+            document.body.appendChild(this.image);
+            this.image = document.createElement('img');
+            this.image.src = 'korona.png';
+            this.image.className = 'koronapng';
+            document.body.appendChild(this.image);
+            var data2 = document.getElementById("datateam2");
+            data2.style.display = "block";
+            document.body.appendChild(data2);
+            var winnlabel = document.getElementById("finalwinner");
+            winnlabel.style.display = "block";
+            document.body.appendChild(winnlabel);
+            // var winner_txt = document.createElement('div');
+
+            // var dt = "nn";
+            // var dt2 = dt;
+            // const name_team_2 = 'name_team_2';
+
+            // fetch(`http://localhost:3000/api/score/${name_team_2}`)
+            //     .then((response) => response.json())
+            //     .then((data) => {
+            //         console.log('Score:', data);
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+            // fetch(`http://localhost:3000/api/score/${name_team_2}`, {
+            //     mode: 'no-cors'
+            // })
+            //     .then((response) => {
+            //         if (response.ok) {
+            //             return response.json();
+            //         } else {
+            //             throw new Error('Network response was not OK.');
+            //         }
+            //     })
+            //     .then((data) => {
+            //         console.log('Score:', data);
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+            // var ddt = 4545;
+            // winner_txt.innerText = ddt;
+            // winner_txt.className = 'winner_txt';
+            // document.body.appendChild(winner_txt);
+        }
+    </script>
 </body>
 
-</html>
-</body>
 
 </html>
