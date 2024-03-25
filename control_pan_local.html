@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 80rem;
+            padding: 2rem;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            flex-basis: calc(40% - 2rem);
+            margin: 1rem;
+        }
+
+        .left {
+            align-self: flex-start;
+            order: 1;
+        }
+
+        .right {
+            align-self: flex-end;
+            order: 1;
+        }
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 190%;
+            transform: translate(-50%);
+            order: 2;
+            /* margin-top: -50px; */
+        }
+
+        button {
+            background-color: #2e5fe6;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        /* @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .column {
+        flex-basis: 100%;
+    }
+} */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="column left">
+            <button onclick="updateScore('element_on_1_floor_team_1')">Элемент установлен на 1 этаж дома для первой
+                команды</button>
+            <br>
+            <br>
+            <button onclick="updateScore('element_on_2_floor_team_1')">Элемент установлен на 2 этаж дома для первой
+                команды</button>
+            <br>
+            <br>
+            <button onclick="updateScore('element_on_3_floor_team_1')">Элемент установлен на 3 этаж дома для первой
+                команды</button>
+            <br>
+            <br>
+            <button onclick="updateScore('element_on_4_floor_team_1')">Элемент установлен на 4 этаж дома для первой
+                команды</button>
+            <br>
+            <br>
+        </div>
+
+
+        <!-- <button onclick="updateScore('increase')">Увеличить счёт</button>
+        <button onclick="updateScore('decrease')">Уменьшить счёт</button>
+        <br>
+        <br> -->
+
+
+    </div>
+    
+</body>
+
+
+</html>
