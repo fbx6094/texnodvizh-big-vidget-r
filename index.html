@@ -114,7 +114,7 @@
         <div class="blue_upper_background"></div>
         <div class="score">{{data.score_team_1 + ":" + data.score_team_2}}</div>
         <!-- <div class="grid_for_team_names"> -->
-        <div class="datateam2" id="datateam2">{{data.name_team_2}}</div>
+        <div class="datateam2" id="datateam2">{{data.final_winner}}</div>
         <div class="finalwinner" id="finalwinner">Победитель</div>
         <div class="table_row">
             <div class="item_for_widing w-300" onclick="showItogo()">{{data.name_team_1}}</div>
@@ -202,6 +202,7 @@
             setup() {
                 const message = ref("Hello vue!");
                 const data = ref({
+                    final_winner: "null",
                     id: "adsadsadsadasdasd",
                     score_team_1: "0",
                     name_team_1: "Name 1",
@@ -210,13 +211,14 @@
                     timer: true,
                     timer_start: "2018-25-12 23:50:55",
                     timer_end: "2018-25-12 23:50:55",
-                    team_1_score_street_1: 4,
-                    team_1_score_street_2: 2,
+                    team_1_score_street_1: 0,
+                    team_1_score_street_2: 0,
                     team_1_score_street_3: 0,
-                    team_2_score_street_1: 4,
-                    team_2_score_street_2: 4,
-                    team_2_score_street_3: 4,
-                    team_score_street_main: 2,
+                    team_2_score_street_1: 0,
+                    team_2_score_street_2: 0,
+                    team_2_score_street_3: 0,
+                    team_score_street_main: 0,
+                    progress_bar_state: 0,
                 });
                 const fetchData = () => {
                     setInterval(() => {
@@ -227,7 +229,7 @@
                                 data.value = res[0];
                             })
                         );
-                    }, 500); // Обновление каждые n секунды
+                    }, 100); // Обновление каждые n секунды
                 };
                 fetchData();
 
@@ -340,7 +342,7 @@
                     }
                     showwinner();
                 };
-            } 
+            }
 
             show() {
                 var mainbg = document.getElementsByClassName("main_background");
@@ -368,8 +370,17 @@
             var main_back = document.getElementById("mainbg");
             main_back.style.boxShadow = "none";
 
+            // var circles = document.getElementsByClassName("circles");
+            // circles.style.zIndex = 11004;
+            var circles = document.querySelectorAll('.circles');
+
+            // Set the z-index property of each element
+            for (var i = 0; i < circles.length; i++) {
+                circles[i].style.zIndex = 99; // You can replace 1000 with any integer value
+            }
+
             // Создаем объект класса Itogo
-            var itogoInstance = new Itogo();
+            var itogoInstance = new Itogo();    
 
             // Вызываем метод show() для отображения Itogo
             itogoInstance.show();
@@ -389,40 +400,42 @@
             var winnlabel = document.getElementById("finalwinner");
             winnlabel.style.display = "block";
             document.body.appendChild(winnlabel);
-            // var winner_txt = document.createElement('div');
-
-            // var dt = "nn";
-            // var dt2 = dt;
-            // const name_team_2 = 'name_team_2';
-
-            // fetch(`http://localhost:3000/api/score/${name_team_2}`)
-            //     .then((response) => response.json())
-            //     .then((data) => {
-            //         console.log('Score:', data);
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error:', error);
-            //     });
-            // fetch(`http://localhost:3000/api/score/${name_team_2}`, {
-            //     mode: 'no-cors'
-            // })
-            //     .then((response) => {
-            //         if (response.ok) {
-            //             return response.json();
-            //         } else {
-            //             throw new Error('Network response was not OK.');
-            //         }
-            //     })
-            //     .then((data) => {
-            //         console.log('Score:', data);
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error:', error);
-            //     });
-            // var ddt = 4545;
-            // winner_txt.innerText = ddt;
-            // winner_txt.className = 'winner_txt';
-            // document.body.appendChild(winner_txt);
+            this.image.onclick = function () {
+                showloading()
+            }
+        }
+        function showloading() {
+            this.image = document.createElement('img');
+            this.image.src = 'blue.png';
+            this.image.className = 'blue_back_for_loading';
+            document.body.appendChild(this.image);
+            this.image = document.createElement('img');
+            this.image.src = 'korona.png';
+            this.image.className = 'koronapng';
+            document.body.appendChild(this.image);
+            this.image1 = document.createElement('img');
+            this.image1.src = 'imggg.png';
+            this.image1.className = 'rotating_on_loading';
+            this.image1.id = 'rtr';
+            this.image1.addEventListener('click', function () {
+                // reload the page when the image is clicked
+                window.location.reload();
+            });
+            document.body.appendChild(this.image1)
+            var decisionText = document.createElement('div');
+            decisionText.innerText = 'Следующий матч скоро начнётся...';
+            decisionText.className = 'decision_text_on_loading'; // Добавляем класс для текста
+            document.body.appendChild(decisionText);
+            var circles = document.querySelectorAll('.circles li');
+            for (var i = 0; i < circles.length; i++) {
+                circles[i].style.backgroundImage = 'url("imggg.png")';
+            }
+            // var data2 = document.getElementById("datateam2");
+            // data2.style.display = "block";
+            // document.body.appendChild(data2);
+            // var winnlabel = document.getElementById("finalwinner");
+            // winnlabel.style.display = "block";
+            // document.body.appendChild(winnlabel);
         }
     </script>
 

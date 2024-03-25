@@ -535,6 +535,7 @@
     width: 97%;
     height: 100%;
     overflow: hidden;
+    z-index: 9;
 }
 
 .circles li {
@@ -671,7 +672,7 @@
     box-shadow: none;
     width: 79%;
     height: 90%;
-    z-index: 999;
+    z-index: 99;
     left: 10.9%;
     top: 10%;
     transition: width 0.3s;
@@ -689,9 +690,19 @@
     /* transform: translate(-50%); */
     top: 20%;
     /* animation-play-state: running; */
+    z-index: 10000;
 }
 
-.winner_txt{
+.rotating_on_loading {
+    animation: rotate 5s linear infinite;
+    width: 17%;
+    position: absolute;
+    left: 42%;
+    top: 22%;
+    z-index: 11001;
+}
+
+.winner_txt {
     color: #FFF;
     position: absolute;
     font-size: 50px;
@@ -714,7 +725,30 @@
     z-index: 9999;
 }
 
-.datateam2{
+.blue_back_for_loading {
+    width: 50%;
+    height: 65%;
+    position: absolute;
+    left: 30%;
+    top: 22%;
+    z-index: 10999;
+}
+
+.datateam2 {
+    color: #FFF;
+    position: absolute;
+    font-size: 50px;
+    top: 61%;
+    left: 50.5%;
+    transform: translate(-50%);
+    font-family: Proxima Nova Condensed;
+    font-weight: 700;
+    letter-spacing: 5px;
+    z-index: 10002;
+    display: none;
+}
+
+.finalwinner {
     color: #FFF;
     position: absolute;
     font-size: 50px;
@@ -727,21 +761,8 @@
     z-index: 10002;
     display: none;
 }
-.finalwinner{
-    color: #FFF;
-    position: absolute;
-    font-size: 50px;
-    top: 20%;
-    left: 50.5%;
-    transform: translate(-50%);
-    font-family: Proxima Nova Condensed;
-    font-weight: 700;
-    letter-spacing: 5px;
-    z-index: 10002;
-    display: none;
-}
 
-.koronapng{
+.koronapng {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
@@ -771,6 +792,19 @@
     font-family: Proxima Nova Condensed;
     font-weight: 700;
     letter-spacing: 5px;
+}
+
+.decision_text_on_loading {
+    color: #FFF;
+    position: absolute;
+    font-size: 50px;
+    top: 55%;
+    left: 51%;
+    transform: translate(-50%);
+    font-family: Proxima Nova Condensed;
+    font-weight: 700;
+    letter-spacing: 5px;
+    z-index: 11002;
 }
 
 .item_for_widin {
