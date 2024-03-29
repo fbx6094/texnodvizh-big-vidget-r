@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check DB Value</title>
+    <base href="http://localhost:5050/">
+
+</head>
+
+<body>
+    <button>lol</button>
+    <script>
+        const id = 1; // Set the ID of the score row
+        const updateInterval = 5000; // Set the update interval in milliseconds
+
+        setInterval(() => {
+            fetch(`/update-score?id=1`)
+                .then(response => response.text())
+                .then(data => {
+                    switch (data) {
+                        case '0':
+                            restart();
+                            break;
+                        case '1':
+                            showItogo();
+                            break;
+                        case '2':
+                            showwinner();
+                            break;
+                        case '3':
+                            showloading();
+                            break;
+                        default:
+                            console.log(`Unknown state: ${data}`);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }, updateInterval);
+
+        function restart() {
+            console.log('Restarting...');
+            // Add your code here
+        }
+
+        function showItogo() {
+            console.log('Showing Itogo...');
+            // Add your code here
+        }
+
+        function showwinner() {
+            console.log('Showing Winner...');
+            // Add your code here
+        }
+
+        function showloading() {
+            console.log('Showing Loading...');
+            // Add your code here
+        }
+    </script>
+</body>
+
+</html>

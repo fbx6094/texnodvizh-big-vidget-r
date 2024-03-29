@@ -157,7 +157,7 @@ app.get('/', (req, res) => {
                 team_2_score_street_3: 0,
                 team_score_street_main: 0,
                 progress_bar_state: 0,
-                state_of_vidget
+                state_of_vidget:0,
             });
             const fetchData = () => {
                 setInterval(() => {
@@ -172,23 +172,10 @@ app.get('/', (req, res) => {
             };
             fetchData();
 
-            const seconds = ref(30);
-            onMounted(() => {
-                setInterval(() => {
-                    seconds.value -= 1;
-                }, 1000);
-            });
-            const minutes = ref(2);
-            onMounted(() => {
-                setInterval(() => {
-                    minutes.value -= 1;
-                }, 60000);
-            });
+           
             return {
                 message,
                 data,
-                seconds,
-                minutes,
             };
         },
     }).mount('#app')
@@ -265,7 +252,7 @@ app.get('/update-score', (req, res) => {
         console.log("success: true, message: Ячейка успешно обновлёна  ", msg);
       }
     });
-  }
+  } 
 });
 
 app.listen(port, ipv4adress, () => {

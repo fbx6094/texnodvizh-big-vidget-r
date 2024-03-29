@@ -79,6 +79,59 @@
             display: none;
         }
     </style>
+    <script>
+        let prev = 0;
+        let anybuttonclicked;
+        function checkScore() {
+            const checkScoreInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('http://localhost:5501/check-score');
+                    const data = await response.text();
+                    if (prev != data) {
+                        anybuttonclicked = false;
+                        // console.log("prev != data");
+                        // prev = data;
+                    }
+                    if(anybuttonclicked == true){
+                        return 0;
+                    }
+                    if(data === prev){
+                        return;
+                    }
+                    if (anybuttonclicked == false) {
+                        // clearInterval(checkScoreInterval);
+                        // anybuttonclicked = false;
+                        if (data === '1') {
+                            anybuttonclicked = true;
+                            prev = data;
+                            showItogo();
+                        } else if (data === '0') {
+                            anybuttonclicked = true;
+                            // window.location.reload();
+                            prev = data;
+                            restart();
+                            // const myButton = document.getElementById('button_state_1');
+                            // myButton.click();
+                        } else if (data === '2') {
+                            anybuttonclicked = true;
+                            prev = data;
+                            showwinner();
+                            // const myButton = document.getElementById('rtr');
+                            // myButton.click();
+                        } else if (data === '3') {
+                            anybuttonclicked = true;
+                            prev = data;
+                            showloading();
+                            // const myButton = document.getElementById('loading_next');
+                            // myButton.click();
+                        }
+                    };
+                } catch (error) {
+                    // console.error(error);
+                };
+            },500); // check every 3 seconds
+        };
+    </script>
 </head>
 
 <body style="font-family:Proxima Nova;">
@@ -117,7 +170,7 @@
         <div class="datateam2" id="datateam2">{{data.final_winner}}</div>
         <div class="finalwinner" id="finalwinner">Победитель</div>
         <div class="table_row">
-            <div class="item_for_widing w-300" onclick="showItogo()">{{data.name_team_1}}</div>
+            <div class="item_for_widing w-300" id="button_state_1" onclick="showItogo()">{{data.name_team_1}}</div>
             <div class="item_for_widing w-300">{{data.name_team_2}}</div>
         </div>
         <div class="app" id="app">
@@ -195,8 +248,10 @@
     <!-- <script src="script.js"></script> -->
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+    <!-- <script src="servel_call2.js"></script> -->
     <script>
         // src = 'script.js';
+        setInterval(checkScore, 250);
         const { onMounted, createApp, ref } = Vue;
         createApp({
             setup() {
@@ -219,7 +274,7 @@
                     team_2_score_street_3: 0,
                     team_score_street_main: 0,
                     progress_bar_state: 0,
-                    state_of_vidget:0,
+                    state_of_vidget: 0,
                 });
                 const fetchData = () => {
                     setInterval(() => {
@@ -254,6 +309,9 @@
                 };
             },
         }).mount('#app')
+
+
+
         //код таймера
 
         var button = document.getElementById("startbtn");
@@ -382,14 +440,18 @@
 
             // Создаем объект класса Itogo
             var itogoInstance = new Itogo();
+            buttonClicked = false;
+            // Обработка нажатия кнопки
 
             // Вызываем метод show() для отображения Itogo
             itogoInstance.show();
+
         }
         function showwinner() {
             this.image = document.createElement('img');
             this.image.src = 'blue.png';
             this.image.className = 'blue_back_for_winner';
+            this.image.id = 'loading_next';
             document.body.appendChild(this.image);
             this.image = document.createElement('img');
             this.image.src = 'korona.png';
@@ -401,12 +463,15 @@
             var winnlabel = document.getElementById("finalwinner");
             winnlabel.style.display = "block";
             document.body.appendChild(winnlabel);
+            buttonClicked = false;
             this.image.onclick = function () {
                 showloading()
             }
+
         }
         function showloading() {
             this.image = document.createElement('img');
+            buttonClicked = false;
             this.image.src = 'blue.png';
             this.image.className = 'blue_back_for_loading';
             document.body.appendChild(this.image);
@@ -418,10 +483,11 @@
             this.image1.src = 'imggg.png';
             this.image1.className = 'rotating_on_loading';
             this.image1.id = 'rtr';
-            this.image1.addEventListener('click', function () {
-                // reload the page when the image is clicked
-                window.location.reload();
-            });
+            // this.image1.addEventListener('click', function ())        
+            // }
+            this.image1.onclick = function () {
+                restart();
+            }
             document.body.appendChild(this.image1)
             var decisionText = document.createElement('div');
             decisionText.innerText = 'Следующий матч скоро начнётся...';
@@ -437,6 +503,9 @@
             // var winnlabel = document.getElementById("finalwinner");
             // winnlabel.style.display = "block";
             // document.body.appendChild(winnlabel);
+        }
+        function restart() {
+            window.location.reload();
         }
 
     </script>
