@@ -116,6 +116,12 @@ app.get('/', (req, res) => {
           Ячейка обновлена
         </div>
             <div class="column left">
+                <button onclick="updateScore('start_timer')">Запустить таймер</button>
+                <br>
+                <br>
+                <button onclick="updateScore('reset_timer')">Сбросить таймер</button>
+                <br>
+                <br>
                 <button onclick="updateScore('judgement_in_progress')">Судьи принимают решение....</button>
                 <br>
                 <br>
@@ -254,7 +260,33 @@ app.get('/update-score', (req, res) => {
         console.log("success: true, message: Ячейка успешно обновлёна  ", msg);
       }
     });
-  } 
+  } else if (action === 'start_timer') {
+    updateValue = 0;
+    transmitter = 0;
+    msg = 'TIMER STARTED';
+    pool.query('UPDATE score SET progress_bar_state=1', (error, results) => {
+      if (error) {
+        res.status(500).json({ success: false, message: 'Ошибка обновления ячейки' });
+        console.log("success: false, message: Ошибка обновления ячейки  ", msg);
+      } else {
+        res.json({ success: true, message: 'Ячейка успешно обновлёна' });
+        console.log("success: true, message: Ячейка успешно обновлёна  ", msg);
+      }
+    });
+  } else if (action === 'reset_timer') {
+    updateValue = 0;
+    transmitter = 0;
+    msg = 'TIMER RESTARTED';
+    pool.query('UPDATE score SET progress_bar_state=0', (error, results) => {
+      if (error) {
+        res.status(500).json({ success: false, message: 'Ошибка обновления ячейки' });
+        console.log("success: false, message: Ошибка обновления ячейки  ", msg);
+      } else {
+        res.json({ success: true, message: 'Ячейка успешно обновлёна' });
+        console.log("success: true, message: Ячейка успешно обновлёна  ", msg);
+      }
+    });
+  }
 });
 
 app.listen(port, ipv4adress, () => {

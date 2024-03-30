@@ -80,6 +80,7 @@
         }
     </style>
     <script>
+        console.error = function () {};
         let prev = 0;
         let anybuttonclicked;
         function checkScore() {
@@ -87,6 +88,7 @@
                 try {
                     const response = await fetch('http://localhost:5501/check-score');
                     const data = await response.text();
+                    // console.log(data);
                     if (prev != data) {
                         anybuttonclicked = false;
                         // console.log("prev != data");
@@ -127,7 +129,45 @@
                         }
                     };
                 } catch (error) {
-                    // console.error(error);
+                    console.error(error);
+                    // console.clear();
+                    
+                };
+            }, 500); // check every 3 seconds
+        };
+        console.error = function () {};
+        let prev_timer = 0;
+        let timerToggled;
+        function checkTimer() {
+            const checkTimerInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('http://localhost:5500/check-timer');
+                    const data_timer = await response.text();
+                    // timer_start_from_cpl();
+                    // console.log(data_timer);
+                    if (prev_timer != data_timer) {
+                        timerToggled = false;
+                        // console.log("prev_timer != data_timer");
+                        // prev_timer = data_timer;
+                    }
+                    if (timerToggled == true) {
+                        return 0;
+                    }
+                    if (data_timer === prev_timer) {
+                        return;
+                    }
+                    if (timerToggled == false) {
+                        // clearInterval(checkScoreInterval);
+                        // timerToggled = false;
+                        if (data_timer === '1') {
+                            timerToggled = true;
+                            prev_timer = data_timer;
+                            timer_start_from_cpl();
+                        }
+                    };
+                } catch (error) {
+                    console.error(error);
+                    // console.clear();
                 };
             }, 500); // check every 3 seconds
         };
@@ -253,6 +293,7 @@
     <script>
         // src = 'script.js';
         setInterval(checkScore, 250);
+        setInterval(checkTimer, 250);
         const { onMounted, createApp, ref } = Vue;
         createApp({
             setup() {
@@ -312,9 +353,84 @@
             },
         }).mount('#app')
 
+        console.error = function() {};
 
 
-        //код таймера
+        //таймер авто
+
+        function timer_start_from_cpl() {
+            var button = document.getElementById("startbtn");
+            var timer = document.getElementById("timer");
+            var loader = document.getElementById("loader");
+            var timerof = document.getElementById("timeroff");
+            function button_hide() {
+                button.style.display = "none";
+                timer.style.display = "block";
+                loader.style.display = "block";
+
+            }
+            function backtostart() {
+                timerof.style.display = "none";
+                button.style.display = "block";
+            }
+            function timeroff() {
+                timerof.style.display = 'block';
+                timer.style.display = 'none';
+            }
+            function timerfnc() {
+                // Устанавливаем время в секундах
+                var timeLeft = 120;
+
+                // Функция для обновления таймера
+                function updateTimer() {
+                    // Получаем элемент с id "timer"
+                    var timerElement = document.getElementById("timer");
+
+                    // Вычисляем минуты и секунды
+                    var minutes = Math.floor(timeLeft / 60);
+                    var seconds = timeLeft % 60;
+
+                    // Добавляем ведущий ноль, если значение минут или секунд меньше 10
+                    var formattedMinutes = ("0" + minutes).slice(-2);
+                    var formattedSeconds = ("0" + seconds).slice(-2);
+
+                    // Обновляем текст в элементе таймера
+                    timerElement.textContent = formattedMinutes + ":" + formattedSeconds;
+
+                    // Уменьшаем время на 1 секунду
+                    timeLeft--;
+
+                    // Проверяем, если время закончилось, останавливаем таймер
+                    if (timeLeft < 0) {
+                        clearInterval(timerInterval);
+                        playSound1();
+                        // timerElement.textContent = "Время вышло!";
+                        timeroff();
+                    }
+                }
+
+                // Запускаем таймер каждую секунду
+                var timerInterval = setInterval(updateTimer, 1000);
+
+            }
+            function playSound1() {
+                const audio = document.getElementById('sound');
+                audio.play();
+            }
+            // button.addEventListener("click", button_hide(), timerfnc());
+
+            playSound1();
+            // setTimeout(() => {
+            //     console.log("After 500 milliseconds");
+            // }, 500);
+            button_hide();
+            timerfnc();
+
+        }
+        console.error = function() {};
+
+
+        //таймер вручную
 
         var button = document.getElementById("startbtn");
         var timer = document.getElementById("timer");
@@ -377,9 +493,10 @@
         }
         // button.addEventListener("click", button_hide(), timerfnc());
         button.addEventListener("click", function () {
-            button_hide();
-            timerfnc();
-            playSound1();
+            // button_hide();
+            // timerfnc();
+            // playSound1();
+            timer_start_from_cpl();
         });
 
         class Itogo {
