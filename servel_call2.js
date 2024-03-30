@@ -10,7 +10,9 @@ const pool = new Pool({
   password: 'pswwdpost',
   port: 5432
 });
-
+const opn = require('opn');
+const port = 5501;
+opn(`http://localhost:${port}/check-score`);
 const app = express();
 
 // Use CORS middleware to allow cross-origin requests
@@ -27,8 +29,8 @@ app.get('/check-score', async (req, res) => {
   }
 });
 
-app.listen(5501, () => {
-  console.log('Server listening on port 5050');
+app.listen(port, () => {
+  console.log(`http://localhost:${port}/check-score`);
 });
 ``
 

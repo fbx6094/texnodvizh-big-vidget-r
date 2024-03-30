@@ -5,6 +5,7 @@ const { Pool } = require('pg');
 const app = express();
 const port = 5050;
 const ipv4adress = '192.168.1.111';
+const opn = require('opn');
 
 // Подключение к базе данных
 const pool = new Pool({
@@ -14,6 +15,7 @@ const pool = new Pool({
   password: 'pswwdpost',
   port: 5432,
 });
+opn(`http://${ipv4adress}:${port}`);
 // app.use(express.static(__dirname + '/public/css'));
 app.get('/', (req, res) => {
   // Вывод веб-страницы с кнопками 
