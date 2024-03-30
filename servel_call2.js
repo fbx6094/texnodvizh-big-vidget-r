@@ -11,7 +11,7 @@ const pool = new Pool({
   port: 5432
 });
 const opn = require('opn');
-const port = 5501;
+const port = 5505;
 opn(`http://localhost:${port}/check-score`);
 const app = express();
 

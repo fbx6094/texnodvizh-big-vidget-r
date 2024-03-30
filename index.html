@@ -80,62 +80,64 @@
         }
     </style>
     <script>
-        console.error = function () {};
+        // console.error = function () { };
         let prev = 0;
+        let ttx = 1;
         let anybuttonclicked;
-        function checkScore() {
-            const checkScoreInterval = setInterval(async () => {
-                try {
-                    const response = await fetch('http://localhost:5501/check-score');
-                    const data = await response.text();
-                    // console.log(data);
-                    if (prev != data) {
-                        anybuttonclicked = false;
-                        // console.log("prev != data");
-                        // prev = data;
-                    }
-                    if (anybuttonclicked == true) {
-                        return 0;
-                    }
-                    if (data === prev) {
-                        return;
-                    }
-                    if (anybuttonclicked == false) {
-                        // clearInterval(checkScoreInterval);
-                        // anybuttonclicked = false;
-                        if (data === '1') {
-                            anybuttonclicked = true;
-                            prev = data;
-                            showItogo();
-                        } else if (data === '0') {
-                            anybuttonclicked = true;
-                            // window.location.reload();
-                            prev = data;
-                            restart();
-                            // const myButton = document.getElementById('button_state_1');
-                            // myButton.click();
-                        } else if (data === '2') {
-                            anybuttonclicked = true;
-                            prev = data;
-                            showwinner();
-                            // const myButton = document.getElementById('rtr');
-                            // myButton.click();
-                        } else if (data === '3') {
-                            anybuttonclicked = true;
-                            prev = data;
-                            showloading();
-                            // const myButton = document.getElementById('loading_next');
-                            // myButton.click();
-                        }
-                    };
-                } catch (error) {
-                    console.error(error);
-                    // console.clear();
-                    
-                };
-            }, 500); // check every 3 seconds
-        };
-        console.error = function () {};
+        // function checkScore() {
+        //     const checkScoreInterval = setInterval(async () => {
+        //         try {
+        //             const response = await fetch('http://localhost:5501/check-score');
+        //             const data = await response.text();
+        //             // console.log(data);
+        //             if (prev != data) {
+        //                 anybuttonclicked = false;
+        //                 // console.log("prev != data");
+        //                 // prev = data;
+        //             }
+        //             if (anybuttonclicked == true) {
+        //                 return 0;
+        //             }
+        //             if (data === prev) {
+        //                 return;
+        //             }
+        //             if (anybuttonclicked == false) {
+        //                 // clearInterval(checkScoreInterval);
+        //                 // anybuttonclicked = false;
+        //                 if (data === '1') {
+        //                     anybuttonclicked = true;
+        //                     prev = data;
+        //                     showItogo();
+        //                 } else if (data === '0') {
+        //                     anybuttonclicked = true;
+        //                     // window.location.reload();
+        //                     prev = data;
+        //                     restart();
+        //                     // const myButton = document.getElementById('button_state_1');
+        //                     // myButton.click();
+        //                 } else if (data === '2') {
+        //                     anybuttonclicked = true;
+        //                     prev = data;
+        //                     showwinner();
+        //                     // const myButton = document.getElementById('rtr');
+        //                     // myButton.click();
+        //                 } else if (data === '3') {
+        //                     anybuttonclicked = true;
+        //                     prev = data;
+        //                     showloading();
+        //                     // const myButton = document.getElementById('loading_next');
+        //                     // myButton.click();
+        //                 }
+        //             };
+        //         } catch (ttx) {
+        //             // console.log("testx");
+        //             // console.error();
+        //             // console.clear();
+
+        //         };
+        //     }, 500); // check every 3 seconds
+        // };
+        // console.error = function () { };
         let prev_timer = 0;
         let timerToggled;
         function checkTimer() {
@@ -165,8 +167,9 @@
                             timer_start_from_cpl();
                         }
                     };
-                } catch (error) {
-                    console.error(error);
+                } catch (ttx) {
+                    // console.error();
+                    // console.log("testx");
                     // console.clear();
                 };
             }, 500); // check every 3 seconds
@@ -292,7 +295,8 @@
     <!-- <script src="servel_call2.js"></script> -->
     <script>
         // src = 'script.js';
-        setInterval(checkScore, 250);
+        console.error = function () { };
+        // setInterval(checkScore, 250);
         setInterval(checkTimer, 250);
         const { onMounted, createApp, ref } = Vue;
         createApp({
@@ -353,7 +357,7 @@
             },
         }).mount('#app')
 
-        console.error = function() {};
+
 
 
         //таймер авто
@@ -427,7 +431,7 @@
             timerfnc();
 
         }
-        console.error = function() {};
+        console.error = function () { };
 
 
         //таймер вручную
