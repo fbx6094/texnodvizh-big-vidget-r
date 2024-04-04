@@ -3,10 +3,18 @@ const express = require('express');
 const { Pool } = require('pg');
 
 const app = express();
-const port = 5050;
-const ipv4adress = '192.168.217.16';
+const port = 5089;
+const ipv4adress = '192.168.1.110';
 const opn = require('opn');
 
+
+const pool2 = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'localdb',
+  password: 'post',
+  port: 5432
+})
 // Подключение к базе данных
 const pool = new Pool({
   user: 'postgres',
@@ -35,6 +43,7 @@ app.get('/', (req, res) => {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #303030;
         }
 
         .notification{
@@ -82,6 +91,7 @@ app.get('/', (req, res) => {
 
         button {
             background-color: #2e5fe6;
+            border-radius:7px;
             border: none;
             color: white;
             padding: 0.5rem 1rem;
@@ -132,6 +142,9 @@ app.get('/', (req, res) => {
                 <br>
                 <br>
                 <button onclick="updateScore('restart')">Домой</button>
+                <br>
+                <br>
+                <button onclick="updateScore('restart_timer')">Перезапуск таймера</button>
                 <br>
                 <br>
             </div>
@@ -286,6 +299,28 @@ app.get('/update-score', (req, res) => {
         console.log("success: true, message: Ячейка успешно обновлёна  ", msg);
       }
     });
+  } else if (action === 'restart_timer') {
+    updateValue = 0;
+    transmitter = 0;
+    msg = 'TIMER RELOADED';
+    pool.query('UPDATE score SET progress_bar_state=2', (error, results) => {
+      if (error) {
+        res.status(500).json({ success: false, message: 'Ошибка обновления ячейки' });
+        console.log("success: false, message: Ошибка обновления ячейки  ", msg);
+      } else {
+        res.json({ success: true, message: 'Ячейка успешно обновлёна' });
+        console.log("success: true, message: Ячейка успешно обновлёна  ", msg);
+      }
+    });
+    setTimeout(() => {
+      pool.query('UPDATE score SET progress_bar_state=0', (error, results) => {
+        if  (error){
+          console.log("succes: false, message: Ошибка обновления ячейки   ", msg);
+        }else{
+          console.log("success: true, message: Ячейка успешно обновлена  ", msg);
+        }
+      });
+    }, 750);
   }
 });
 

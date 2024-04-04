@@ -79,102 +79,6 @@
             display: none;
         }
     </style>
-    <script>
-        // console.error = function () { };
-        let prev = 0;
-        let ttx = 1;
-        let anybuttonclicked;
-        // function checkScore() {
-        //     const checkScoreInterval = setInterval(async () => {
-        //         try {
-        //             const response = await fetch('http://localhost:5501/check-score');
-        //             const data = await response.text();
-        //             // console.log(data);
-        //             if (prev != data) {
-        //                 anybuttonclicked = false;
-        //                 // console.log("prev != data");
-        //                 // prev = data;
-        //             }
-        //             if (anybuttonclicked == true) {
-        //                 return 0;
-        //             }
-        //             if (data === prev) {
-        //                 return;
-        //             }
-        //             if (anybuttonclicked == false) {
-        //                 // clearInterval(checkScoreInterval);
-        //                 // anybuttonclicked = false;
-        //                 if (data === '1') {
-        //                     anybuttonclicked = true;
-        //                     prev = data;
-        //                     showItogo();
-        //                 } else if (data === '0') {
-        //                     anybuttonclicked = true;
-        //                     // window.location.reload();
-        //                     prev = data;
-        //                     restart();
-        //                     // const myButton = document.getElementById('button_state_1');
-        //                     // myButton.click();
-        //                 } else if (data === '2') {
-        //                     anybuttonclicked = true;
-        //                     prev = data;
-        //                     showwinner();
-        //                     // const myButton = document.getElementById('rtr');
-        //                     // myButton.click();
-        //                 } else if (data === '3') {
-        //                     anybuttonclicked = true;
-        //                     prev = data;
-        //                     showloading();
-        //                     // const myButton = document.getElementById('loading_next');
-        //                     // myButton.click();
-        //                 }
-        //             };
-        //         } catch (ttx) {
-        //             // console.log("testx");
-        //             // console.error();
-        //             // console.clear();
-
-        //         };
-        //     }, 500); // check every 3 seconds
-        // };
-        // console.error = function () { };
-        let prev_timer = 0;
-        let timerToggled;
-        function checkTimer() {
-            const checkTimerInterval = setInterval(async () => {
-                try {
-                    const response = await fetch('http://localhost:5500/check-timer');
-                    const data_timer = await response.text();
-                    // timer_start_from_cpl();
-                    // console.log(data_timer);
-                    if (prev_timer != data_timer) {
-                        timerToggled = false;
-                        // console.log("prev_timer != data_timer");
-                        // prev_timer = data_timer;
-                    }
-                    if (timerToggled == true) {
-                        return 0;
-                    }
-                    if (data_timer === prev_timer) {
-                        return;
-                    }
-                    if (timerToggled == false) {
-                        // clearInterval(checkScoreInterval);
-                        // timerToggled = false;
-                        if (data_timer === '1') {
-                            timerToggled = true;
-                            prev_timer = data_timer;
-                            timer_start_from_cpl();
-                        }
-                    };
-                } catch (ttx) {
-                    // console.error();
-                    // console.log("testx");
-                    // console.clear();
-                };
-            }, 500); // check every 3 seconds
-        };
-    </script>
 </head>
 
 <body style="font-family:Proxima Nova;">
@@ -212,6 +116,12 @@
         <!-- <div class="grid_for_team_names"> -->
         <div class="datateam2" id="datateam2">{{data.final_winner}}</div>
         <div class="finalwinner" id="finalwinner">Победитель</div>
+
+
+        <!-- server call elements-->
+        <h1 id="timer_check_element">{{data.progress_bar_state}}</h1>
+        <h1 id="state_of_vidget_element">{{data.state_of_vidget}}</h1>
+
         <div class="final_winner_score" id="final_winner_score">{{data.final_winner_score}}</div>
         <div class="table_row">
             <div class="item_for_widing w-300" id="button_state_1" onclick="showItogo()">{{data.name_team_1}}</div>
@@ -226,7 +136,7 @@
                     </div>
                 </div>
                 <div class="timer">
-                    <span id="startbtn" style="font-size: 35px; color: rgb(0, 190, 0);">Матч скоро начнётся!</span>
+                    <span id="startbtn" style="font-size: 35px; color: rgb(0, 0, 0);">Матч скоро начнётся!</span>
                     <span id="timeroff" style="font-size: 35px;">Время истекло!</span>
                     <h1 id="timer"
                         style=" font-weight: bold; font-size: larger; z-index: 11; position: absolute;  left: 50%; transform: translate(-50%);">
@@ -289,15 +199,9 @@
         </div>
     </div>
 
-    <!-- <script src="script.js"></script> -->
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
-    <!-- <script src="servel_call2.js"></script> -->
     <script>
-        // src = 'script.js';
-        console.error = function () { };
-        // setInterval(checkScore, 250);
-        setInterval(checkTimer, 250);
+
         const { onMounted, createApp, ref } = Vue;
         createApp({
             setup() {
@@ -336,6 +240,81 @@
                 };
                 fetchData();
 
+                let prev_timer = 0;
+                let timerToggled;
+
+                const check_timer_vue = () => {
+                    setInterval(() => {
+                        var el = document.getElementById("timer_check_element");
+
+                        if (prev_timer != el.textContent) {
+                            timerToggled = false;
+                        }
+                        if (timerToggled == true) {
+                            return 0;
+                        }
+                        if (el.textContent === prev_timer) {
+                            return;
+                        }
+                        if (timerToggled == false) {
+                            if (el.textContent === '1') {
+                                timerToggled = true;
+                                prev_timer = el.textContent;
+                                console.log("timer started. VALUE = 1");
+                                timer_start_from_cpl();
+                            }
+                            else if (el.textContent === '2') {
+                                console.log("restarting by timer. VALUE = 2");
+                                restart();
+                            }
+                        } else {
+                            console.log("err");
+                        }
+                    }, 500);
+                };
+                check_timer_vue();
+
+
+                let prev = 0;
+                let anybuttonclicked
+                const check_vidget_state_vue = () => {
+                    setInterval(() => {
+                        var vidget_el = document.getElementById("state_of_vidget_element");
+                        if (prev != vidget_el.textContent) {
+                            anybuttonclicked = false;
+                            
+                        }
+                        if (anybuttonclicked == true) {
+                            return 0;
+                        }
+                        if (vidget_el.textContent === prev) {
+                            return;
+                        }
+                        if (anybuttonclicked == false) {
+
+                            if (vidget_el.textContent === '1') {
+                                anybuttonclicked = true;
+                                prev = vidget_el.textContent;
+                                showItogo();
+                            } else if (vidget_el.textContent === '0') {
+                                anybuttonclicked = true;
+                                prev = vidget_el.textContent;
+                                restart();
+                            } else if (vidget_el.textContent === '2') {
+                                anybuttonclicked = true;
+                                prev = vidget_el.textContent;
+                                showwinner();
+                            } else if (vidget_el.textContent === '3') {
+                                anybuttonclicked = true;
+                                prev = vidget_el.textContent;
+                                showloading();
+                            }
+                        };
+
+                    }, 500);
+                }
+                check_vidget_state_vue();
+
                 const seconds = ref(30);
                 onMounted(() => {
                     setInterval(() => {
@@ -356,8 +335,6 @@
                 };
             },
         }).mount('#app')
-
-
 
 
         //таймер авто
@@ -431,7 +408,7 @@
             timerfnc();
 
         }
-        console.error = function () { };
+        // console.error = function () { };
 
 
         //таймер вручную
@@ -568,6 +545,7 @@
 
         }
         function showwinner() {
+            // checkTimer(); 
             var circles = document.querySelectorAll('.circles li');
             for (var i = 0; i < circles.length; i++) {
                 circles[i].style.backgroundImage = 'url("korona.png")';

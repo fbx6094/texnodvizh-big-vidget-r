@@ -116,7 +116,6 @@
     /* top: 16%; */
     left: 50%;
     transform: translate(-50%);
-
 }
 
 .timer {
@@ -410,7 +409,7 @@
     width: 4px;
     height: 50px;
     border-radius: 6px;
-    background: #FFF;
+    background: #ffffff;
     flex-shrink: 0;
 
 }

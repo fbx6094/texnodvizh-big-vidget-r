@@ -3,13 +3,21 @@ const { Pool } = require('pg');
 const cors = require('cors');
 
 // Set up the PostgreSQL database connection
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: '193.164.149.85',
+//   database: 'texnodvizh_db',
+//   password: 'pswwdpost',
+//   port: 5432
+// });
+
 const pool = new Pool({
-  user: 'postgres',
-  host: '193.164.149.85',
-  database: 'texnodvizh_db',
-  password: 'pswwdpost',
+  user:'postgres',
+  host: 'localhost',
+  database: 'localdb',
+  password: 'post',
   port: 5432
-});
+})
 const opn = require('opn');
 const port = 5500;
 opn(`http://localhost:${port}/check-timer`);
@@ -18,19 +26,28 @@ const app = express();
 // Use CORS middleware to allow cross-origin requests
 app.use(cors());
 
-app.get('/check-timer', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT progress_bar_state FROM score WHERE id = 1');
-    const stateOfTimer = result.rows[0].progress_bar_state;
-    res.send(`${stateOfTimer}`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
-});
+// app.get('/check-timer', async (req, res) => {
+//   try {
+//     const result = await pool.query('SELECT progress_bar_state FROM score WHERE id = 1');
+//     const stateOfTimer = result.rows[0].progress_bar_state;
+//     res.send(`${stateOfTimer}`);
+//   } catch (err) {
+//     // console.error(err);
+//     // res.status(500).send('Internal Server Error');
+//   }
+// });
+
+setInterval(() => {
+  app.get('/check-timer', async (req, res) => {
+
+      const result = await pool.query('SELECT timer_state FROM localdb');
+      const stateOfTimer = result.rows[0].timer_state;
+      res.send(`${stateOfTimer}`);
+  });
+}, 500);
 
 app.listen(port, () => {
-  console.log(`http://localhost:${port}/check-timer`);
+  console.log(`https://localhost:${port}/check-timer`);
 });
 ``
 
