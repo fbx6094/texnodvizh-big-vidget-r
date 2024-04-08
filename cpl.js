@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 
 const app = express();
 const port = 5089;
-const ipv4adress = '192.168.1.110';
+const ipv4adress = '192.168.23.32';
 const opn = require('opn');
 
 
