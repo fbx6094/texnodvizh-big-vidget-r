@@ -5,7 +5,7 @@
   "main": "mm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon cpl.js"
+    "start": "node cpl.js"
   },
   "author": "",
   "license": "ISC",
