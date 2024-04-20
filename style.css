@@ -798,8 +798,9 @@
     color: #FFF;
     position: absolute;
     font-size: 50px;
+    width: 1000px;
     top: 55%;
-    left: 51%;
+    left: 57%;
     transform: translate(-50%);
     font-family: Proxima Nova Condensed;
     font-weight: 700;
@@ -816,6 +817,7 @@
     font-family: Proxima Nova Condensed;
     font-weight: 700;
     letter-spacing: 5px;
+    width: 1000px;
     z-index: 11002;
 }
 
