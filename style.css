@@ -5,7 +5,7 @@
 .backroudn_for_titles {
     /* width: 1280px;
     height: 61px; */
-    background: #0050F5;
+    background: #2f75ff;
     flex-shrink: 0;
     position: absolute;
     top: 0;
@@ -95,7 +95,7 @@
     width: 430px;
     height: 130px;
     border-radius: 34px;
-    background: #0050F5;
+    background: #2f75ff;
     flex-shrink: 0;
     position: absolute;
     top: 22%;
@@ -417,7 +417,7 @@
 .blue_upper_background {
     width: 1500px;
     height: 114px;
-    background: #0050F5;
+    background: #2f75ff;
     flex-shrink: 0;
     position: absolute;
     top: 16.1%;
@@ -430,7 +430,7 @@
     width: 1500px;
     height: 73.895px;
     border-radius: 32px;
-    background: #0050F5;
+    background: #2f75ff;
     flex-shrink: 0;
     position: absolute;
     top: 11.7%;
@@ -714,6 +714,15 @@
     z-index: 10000;
 }
 
+.circle_blue_for_commands{
+    background-color: #003cff;
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+    position: absolute;
+    top: 14%;
+    left: 90%;
+}
 .circle_red_for_commands{
     background-color: #ff0000;
     height: 50px;
@@ -722,15 +731,6 @@
     position: absolute;
     top: 14%;
     left: 6%;
-}
-.circle_blue_for_commands{
-    background-color: #5d82ff;
-    height: 50px;
-    width: 50px;
-    border-radius: 30px;
-    position: absolute;
-    top: 14%;
-    left: 90%;
 }
 
 .blue_back_for_winner {
