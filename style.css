@@ -714,9 +714,23 @@
     z-index: 10000;
 }
 
-.circle_blue_for_commands{
-    color: #0055ff;
+.circle_red_for_commands{
+    background-color: #ff0000;
+    height: 50px;
+    width: 50px;
     border-radius: 30px;
+    position: absolute;
+    top: 14%;
+    left: 6%;
+}
+.circle_blue_for_commands{
+    background-color: #5d82ff;
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+    position: absolute;
+    top: 14%;
+    left: 90%;
 }
 
 .blue_back_for_winner {
