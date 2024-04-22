@@ -715,22 +715,22 @@
 }
 
 .circle_blue_for_commands{
-    background-color: #003cff;
-    height: 50px;
-    width: 50px;
-    border-radius: 30px;
-    position: absolute;
-    top: 14%;
-    left: 90%;
-}
-.circle_red_for_commands{
     background-color: #ff0000;
     height: 50px;
     width: 50px;
     border-radius: 30px;
     position: absolute;
     top: 14%;
-    left: 6%;
+    left: 93%;
+}
+.circle_red_for_commands{
+    background-color: #003cff;
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+    position: absolute;
+    top: 14%;
+    left: 5%;
 }
 
 .blue_back_for_winner {

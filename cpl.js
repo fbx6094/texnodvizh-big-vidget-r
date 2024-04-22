@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 const port = 5089;
-const ipv4adress = '192.168.23.32';
+const ipv4adress = '192.168.217.40';
 const opn = require('opn');  
 
 
@@ -24,7 +24,7 @@ const pool = new Pool({
   password: 'pswwdpost',
   port: 5432,
 });
-opn(`http://${ipv4adress}:${port}`);
+// opn(`http://${ipv4adress}:${port}`);
 // app.use(express.static(__dirname + '/public/css'));
 app.get('/', (req, res) => {
   // Вывод веб-страницы с кнопками 
